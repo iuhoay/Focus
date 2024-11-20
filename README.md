@@ -4,7 +4,7 @@ A mini Pomodoro timer app built with SwiftUI.
 
 ## Screenshots
 
-![ios](./screenshots/ios.png)
+![iOS](./screenshots/iOS.png)
 
 ## Features
 

@@ -6,7 +6,12 @@
 //
 
 import Foundation
+#if os(iOS)
 import AVFoundation
+#endif
+#if os(watchOS)
+import WatchKit
+#endif
 
 class TimerManager: ObservableObject {
     @Published var timeRemaining: TimeInterval = 0
@@ -22,7 +27,9 @@ class TimerManager: ObservableObject {
     private let defaults = UserDefaults.standard
     private var lastDate: Date?
 
-    init() {
+    init(workDuration: Double = 25, breakDuration: Double = 5) {
+        self.workDuration = workDuration
+        self.breakDuration = breakDuration
         self.timeRemaining = workDuration * 60
         loadTodayStats()
     }
@@ -81,7 +88,12 @@ class TimerManager: ObservableObject {
     }
 
     private func playSound() {
+        #if os(iOS)
         AudioServicesPlaySystemSound(1005)
+        #endif
+        #if os(watchOS)
+        WKInterfaceDevice.current().play(.notification)
+        #endif
     }
 
     private func loadTodayStats() {
